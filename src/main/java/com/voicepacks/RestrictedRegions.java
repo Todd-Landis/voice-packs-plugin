@@ -4,8 +4,9 @@ import java.util.Set;
 
 /**
  * Regions where no voice line ever plays, so lines can't become boss-mechanic cues (Jagex third-party rules; the
- * hub disabled boss-voicer for exactly this). Copied from the Watchdog plugin's Region.java (updated 2026-07-01);
- * keep it in sync with that list. Not configurable on purpose.
+ * hub disabled boss-voicer for exactly this). Copied from the Watchdog plugin's Region.java as of its hub commit
+ * 3360e0a (2026-10-21; plugin-hub plugins/watchdog); keep it in sync with that list. Hydra and Kalphite Queen are
+ * banned outright here, though Watchdog limits them to the instance and plane 0. Not configurable on purpose.
  */
 final class RestrictedRegions
 {
@@ -18,7 +19,8 @@ final class RestrictedRegions
 		12613, 13125, 13122, 13123, 13379, 12612, 12611, // ToB
 		14160, 15698, 15700, 14162, 14164, 15186, 15188, 14674, 14676, 15184, 15696, // ToA
 		6045, 5269, 13668, 14180, 15515,           // Yama, Doom of Mokhaiotl, Nightmare
-		11330, 11645, 11901                        // Phantom Muspah, Maggot King
+		11330, 11645, 11901,                       // Phantom Muspah, Maggot King
+		16214, 16726, 16215, 16727, 16216, 16728, 16472, 16471 // TFA
 	);
 
 	private RestrictedRegions()
