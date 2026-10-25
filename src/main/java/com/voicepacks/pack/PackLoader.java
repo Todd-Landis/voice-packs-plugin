@@ -22,7 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Loads every pack folder under plugin-data/voice_packs/packs/. Uses {@link Filepath} only (the Plugin Hub forbids
+ * Loads every pack folder under plugin-data/voice-packs/packs/. Uses {@link Filepath} only (the Plugin Hub forbids
  * java.io file APIs), so a pack can't reach outside its own folder.
  */
 @Singleton

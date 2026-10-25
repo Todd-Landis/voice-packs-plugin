@@ -10,7 +10,7 @@ combat tasks, clues, collection log slots, boss kills, pets, big drops, deaths a
 2. Click **Import pack (.zip)…** and pick the pack's zip.
 
 The pack starts playing straight away. Installed packs are listed in the panel, each with a **Remove** button.
-They live in `.runelite/plugin-data/voice_packs/packs/<pack id>/`.
+They live in `.runelite/plugin-data/voice-packs/packs/<pack id>/`.
 
 ## Settings
 

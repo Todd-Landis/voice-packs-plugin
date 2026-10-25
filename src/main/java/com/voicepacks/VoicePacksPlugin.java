@@ -55,7 +55,7 @@ import org.slf4j.LoggerFactory;
 
 @PluginDescriptor(
 	name = "Voice Packs",
-	internalName = "voice_packs",
+	internalName = "voice-packs",
 	description = "Plays pre-generated voice lines from installable voice packs",
 	tags = {"voice", "sound", "tts", "announce", "level", "quest"}
 )

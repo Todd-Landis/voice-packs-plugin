@@ -19,7 +19,7 @@ public interface VoicePacksConfig extends Config
 	}
 
 	@ConfigItem(keyName = "enabledPacks", name = "Enabled packs",
-		description = "Comma-separated pack ids to load (folder names under .runelite/plugin-data/voice_packs/packs). Empty loads all.",
+		description = "Comma-separated pack ids to load (folder names under .runelite/plugin-data/voice-packs/packs). Empty loads all.",
 		position = 2)
 	default String enabledPacks()
 	{
