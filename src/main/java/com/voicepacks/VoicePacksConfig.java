@@ -27,10 +27,10 @@ public interface VoicePacksConfig extends Config
 	}
 
 	@ConfigItem(keyName = "overlap", name = "When a line is playing",
-		description = "Interrupt it for an equal or higher priority line, drop the new line, or play both", position = 3)
+		description = "Queue the new line until the current one ends, drop it, or play both at once", position = 3)
 	default VoicePlayer.Overlap overlap()
 	{
-		return VoicePlayer.Overlap.INTERRUPT;
+		return VoicePlayer.Overlap.QUEUE;
 	}
 
 	@Range(max = 60)
