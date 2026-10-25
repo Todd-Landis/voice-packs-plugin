@@ -51,9 +51,8 @@ public class PackLoader
 
 	/**
 	 * @param enabled pack ids to load; empty loads all
-	 * @param tiers   which trigger tiers this build may use
 	 */
-	public Loaded load(Filepath packsDir, Set<String> enabled, Set<EventType.Tier> tiers) throws IOException
+	public Loaded load(Filepath packsDir, Set<String> enabled) throws IOException
 	{
 		Loaded result = new Loaded();
 		if (!packsDir.exists())
@@ -74,7 +73,7 @@ public class PackLoader
 			}
 			try
 			{
-				PackManifest m = loadPack(dir, tiers, result);
+				PackManifest m = loadPack(dir, result);
 				result.packs.add(m.name + " " + m.version);
 				result.manifests.add(m);
 			}
@@ -87,7 +86,7 @@ public class PackLoader
 		return result;
 	}
 
-	private PackManifest loadPack(Filepath dir, Set<EventType.Tier> tiers, Loaded result) throws IOException
+	private PackManifest loadPack(Filepath dir, Loaded result) throws IOException
 	{
 		PackManifest m;
 		try (Reader r = dir.joinSegment("voicepack.json").openBufferedReader())
@@ -105,9 +104,9 @@ public class PackLoader
 		for (PackManifest.Trigger t : m.triggers)
 		{
 			EventType type = EventType.fromKey(t.event);
-			if (type == null || !tiers.contains(type.getTier()))
+			if (type == null)
 			{
-				log.debug("{}: skipping trigger {} ({} not available in this build)", m.id, t.id, t.event);
+				log.debug("{}: skipping trigger {} (unknown event {})", m.id, t.id, t.event);
 				continue;
 			}
 			if (!t.when.keySet().stream().allMatch(type::allows))

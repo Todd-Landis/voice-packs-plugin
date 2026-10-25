@@ -47,11 +47,4 @@ public interface VoicePacksConfig extends Config
 	{
 		return true;
 	}
-
-	@ConfigItem(keyName = "extendedTriggers", name = "Extended triggers",
-		description = "Allow packs' game-message and NPC-name triggers (still silent in boss regions)", position = 6)
-	default boolean extendedTriggers()
-	{
-		return false;
-	}
 }

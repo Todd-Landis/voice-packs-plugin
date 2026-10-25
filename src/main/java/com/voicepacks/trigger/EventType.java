@@ -4,41 +4,26 @@ import java.util.Locale;
 import java.util.Set;
 
 /**
- * The fixed trigger catalogue (mirrors schema/events.json). Packs can only fill these slots: the Plugin Hub does
- * not accept plugins whose behaviour comes from player-supplied IDs, so ID-based events are PERSONAL and are only
- * loaded in developer mode.
+ * The fixed trigger catalogue (mirrors schema/events.json). Packs can only fill these slots. Every event is detected
+ * by fixed code in the plugin; none takes IDs, game-message text or NPC names from a pack (Plugin Hub rule).
  */
 public enum EventType
 {
-	LEVEL_UP(Tier.CORE, "milestone", "skill", "level", "virtual", "milestone", "multi"),
-	XP_MILESTONE(Tier.CORE, "skill", "skill", "xp"),
-	QUEST_COMPLETE(Tier.CORE, null, "quest"),
-	DIARY_COMPLETE(Tier.CORE, "tier", "area", "tier"),
-	COMBAT_TASK(Tier.CORE, "tier", "tier"),
-	COLLECTION_LOG(Tier.CORE, null, "item", "boss", "dryKc"),
-	CLUE_COMPLETE(Tier.CORE, "tier", "tier", "count"),
-	SLAYER_TASK(Tier.CORE, null),
-	BOSS_KC(Tier.CORE, "boss", "boss", "kc", "dryKc"),
-	PET(Tier.CORE, null, "pet", "duplicate", "boss", "dryKc"),
-	LOOT(Tier.CORE, "source", "source", "item", "top", "value", "record", "sourceRecord"),
-	VALUABLE_DROP(Tier.CORE, null, "item", "value"),
-	DEATH(Tier.CORE, null),
-	LOGIN(Tier.CORE, null, "daysAway"),
-	MUSIC_UNLOCK(Tier.CORE, null, "track"),
-
-	GAME_MESSAGE(Tier.EXTENDED, null, "contains"),
-	NPC_SEEN(Tier.EXTENDED, "npc", "npc"),
-	SKILLING_IDLE(Tier.EXTENDED, null, "seconds"),
-
-	NPC_ID(Tier.PERSONAL, "id", "id"),
-	ITEM_DROP_ID(Tier.PERSONAL, "id", "id"),
-	REGION_ENTER(Tier.PERSONAL, "region", "region"),
-	VARBIT(Tier.PERSONAL, "id", "id", "value");
-
-	public enum Tier
-	{
-		CORE, EXTENDED, PERSONAL
-	}
+	LEVEL_UP("milestone", "skill", "level", "virtual", "milestone", "multi"),
+	XP_MILESTONE("skill", "skill", "xp"),
+	QUEST_COMPLETE(null, "quest"),
+	DIARY_COMPLETE("tier", "area", "tier"),
+	COMBAT_TASK("tier", "tier"),
+	COLLECTION_LOG(null, "item", "boss", "dryKc"),
+	CLUE_COMPLETE("tier", "tier", "count"),
+	SLAYER_TASK(null),
+	BOSS_KC("boss", "boss", "kc", "dryKc"),
+	PET(null, "pet", "duplicate", "boss", "dryKc"),
+	LOOT("source", "source", "item", "top", "value", "record", "sourceRecord"),
+	VALUABLE_DROP(null, "item", "value"),
+	DEATH(null),
+	LOGIN(null, "daysAway"),
+	MUSIC_UNLOCK(null, "track");
 
 	/** Filled on every event by the plugin (who the player is, when, where). */
 	public static final Set<String> CONTEXT_FIELDS = Set.of("account", "totalLevel", "combatLevel", "questPoints",
@@ -47,20 +32,13 @@ public enum EventType
 	/** Filled on every event from the account's journey memory. */
 	public static final Set<String> JOURNEY_FIELDS = Set.of("first", "count", "firstAll", "countAll", "sinceLastDays");
 
-	private final Tier tier;
 	private final String keyField;
 	private final Set<String> fields;
 
-	EventType(Tier tier, String keyField, String... fields)
+	EventType(String keyField, String... fields)
 	{
-		this.tier = tier;
 		this.keyField = keyField;
 		this.fields = Set.of(fields);
-	}
-
-	public Tier getTier()
-	{
-		return tier;
 	}
 
 	/** The field "first"/"count" are counted per (e.g. per boss), or null to count the event type as a whole. */

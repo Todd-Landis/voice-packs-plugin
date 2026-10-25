@@ -14,9 +14,8 @@ import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.util.Text;
 
 /**
- * Achievement events announced by game messages. The patterns are fixed in code; packs never supply them (packs
- * may only add phrases for the off-by-default GAME_MESSAGE event). Kill-count and pet wording follows the Dink
- * plugin's notifiers.
+ * Achievement events announced by game messages. The patterns are fixed in code; packs never supply them.
+ * Kill-count and pet wording follows the Dink plugin's notifiers.
  */
 public class ChatSource
 {

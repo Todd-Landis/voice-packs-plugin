@@ -21,14 +21,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.stream.Collectors;
 import javax.swing.SwingUtilities;
 import javax.inject.Inject;
-import javax.inject.Named;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
@@ -116,10 +114,6 @@ public class VoicePacksPlugin extends Plugin
 	@Inject
 	private ClientToolbar clientToolbar;
 
-	@Inject
-	@Named("developerMode")
-	private boolean developerMode;
-
 	private final JourneyStore journey = new JourneyStore();
 	private final List<Deferred> afterAction = new ArrayList<>();
 	private volatile PackLoader.Loaded loaded;
@@ -192,20 +186,11 @@ public class VoicePacksPlugin extends Plugin
 
 	private void reloadPacks()
 	{
-		Set<EventType.Tier> tiers = EnumSet.of(EventType.Tier.CORE);
-		if (config.extendedTriggers())
-		{
-			tiers.add(EventType.Tier.EXTENDED);
-		}
-		if (developerMode)
-		{
-			tiers.add(EventType.Tier.PERSONAL);     // ID-based triggers: sideloaded personal builds only
-		}
 		Set<String> enabled = Arrays.stream(config.enabledPacks().split(","))
 			.map(String::trim).filter(s -> !s.isEmpty()).collect(Collectors.toSet());
 		try
 		{
-			PackLoader.Loaded result = packLoader.load(packsDir(), enabled, tiers);
+			PackLoader.Loaded result = packLoader.load(packsDir(), enabled);
 			result.engine.setPlayCounts(new TriggerEngine.PlayCounts()
 			{
 				@Override
@@ -314,7 +299,7 @@ public class VoicePacksPlugin extends Plugin
 	public void onConfigChanged(ConfigChanged event)
 	{
 		if (VoicePacksConfig.GROUP.equals(event.getGroup())
-			&& ("enabledPacks".equals(event.getKey()) || "extendedTriggers".equals(event.getKey())))
+			&& "enabledPacks".equals(event.getKey()))
 		{
 			executor.execute(this::reloadPacks);
 		}
