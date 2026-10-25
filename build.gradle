@@ -1,0 +1,41 @@
+plugins {
+	id 'java'
+}
+
+repositories {
+	mavenLocal()
+	maven {
+		url = 'https://repo.runelite.net'
+	}
+	mavenCentral()
+}
+
+def runeLiteVersion = 'latest.release'
+
+dependencies {
+	compileOnly group: 'net.runelite', name: 'client', version: runeLiteVersion
+
+	testImplementation 'junit:junit:4.13.2'
+	testImplementation group: 'net.runelite', name: 'client', version: runeLiteVersion
+}
+
+group = 'com.voicepacks'
+version = '0.1.0'
+
+tasks.withType(JavaCompile).configureEach {
+	options.encoding = 'UTF-8'
+	options.release = 11
+}
+
+// Personal use: `gradle run` starts RuneLite in developer mode with this plugin (enables PERSONAL triggers). Sign in
+// with the Jagex Account panel in the sidebar. Uses RuneLite.app's bundled Java 17 and JVM flags when present.
+def runeliteJava = file('/Applications/RuneLite.app/Contents/Resources/jre/bin/java')
+tasks.register('run', JavaExec) {
+	classpath = sourceSets.test.runtimeClasspath
+	mainClass = 'com.voicepacks.VoicePacksPluginTest'
+	if (runeliteJava.exists()) {
+		executable = runeliteJava
+	}
+	jvmArgs '-ea', '-Xmx768m', '-Xss2m', '--add-opens=java.desktop/com.apple.eawt=ALL-UNNAMED'
+	args '--developer-mode'
+}
