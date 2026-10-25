@@ -3,10 +3,11 @@ package com.voicepacks;
 import java.util.Set;
 
 /**
- * Regions where no voice line ever plays, so lines can't become boss-mechanic cues (Jagex third-party rules; the
- * hub disabled boss-voicer for exactly this). Copied from the Watchdog plugin's Region.java as of its hub commit
- * 3360e0a (2026-10-21; plugin-hub plugins/watchdog); keep it in sync with that list. Hydra and Kalphite Queen are
- * banned outright here, though Watchdog limits them to the instance and plane 0. Not configurable on purpose.
+ * Boss rooms and raids where lines are held until the player leaves, so a line never talks over a fight (the "Hold
+ * lines during boss fights" setting, on by default). The triggers are fixed achievement events, not mechanic cues,
+ * so the hub reviewer (2026-10-25) said no restriction is required; this is a courtesy. Copied from the Watchdog
+ * plugin's Region.java as of its hub commit 3360e0a (2026-10-21; plugin-hub plugins/watchdog); keep it in sync with
+ * that list. Hydra and Kalphite Queen count everywhere here, though Watchdog limits them to the instance and plane 0.
  */
 final class RestrictedRegions
 {

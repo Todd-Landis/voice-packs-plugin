@@ -124,7 +124,7 @@ public class VoicePacksPlugin extends Plugin
 	private VoicePacksPanel panel;
 	private NavigationButton navButton;
 
-	/** An event that happened in a restricted region, waiting for the player to leave it. */
+	/** An event that happened in a boss area while lines are held, waiting for the player to leave it. */
 	private static final class Deferred
 	{
 		final GameEvent event;
@@ -352,7 +352,7 @@ public class VoicePacksPlugin extends Plugin
 	public void onGameTick(GameTick tick)
 	{
 		long now = System.currentTimeMillis();
-		boolean restricted = inRestrictedRegion();
+		boolean restricted = config.holdInBossAreas() && inRestrictedRegion();
 		List<GameEvent> events = sink.drain();
 		// Kill counts first, so a pet or collection-log item in the same tick is credited to that kill.
 		events.sort(Comparator.comparing(e -> e.getType() != EventType.BOSS_KC));

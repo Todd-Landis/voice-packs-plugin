@@ -47,4 +47,12 @@ public interface VoicePacksConfig extends Config
 	{
 		return true;
 	}
+
+	@ConfigItem(keyName = "holdInBossAreas", name = "Hold lines during boss fights",
+		description = "In boss rooms and raids, save lines until you leave instead of playing them mid-fight",
+		position = 6)
+	default boolean holdInBossAreas()
+	{
+		return true;
+	}
 }

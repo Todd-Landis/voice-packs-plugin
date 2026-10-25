@@ -14,10 +14,11 @@ They live in `.runelite/plugin-data/voice-packs/packs/<pack id>/`.
 
 ## Settings
 
-Volume, which packs are enabled, what happens when a line is already playing, the minimum gap between lines, and
-subtitles in the chat box.
+Volume, which packs are enabled, what happens when a line is already playing (queue it, drop it, or play both),
+the minimum gap between lines, subtitles in the chat box, and whether to hold lines during boss fights.
 
-Lines never play during boss fights or raids. A line for something that happens there waits until you leave.
+**Hold lines during boss fights** (on by default): in boss rooms and raids, lines wait until you leave, so nothing
+talks over a fight. Turn it off to hear a kill or pet line the moment it happens.
 
 ## Pack format
 
